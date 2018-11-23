@@ -1,6 +1,8 @@
 <?php
     $inferior = $_POST['inferior'];
     $superior = $_POST['superior'];
+    $ciudad = $_POST['ciudad'];
+    $tipo = $_POST['tipo'];
     $file = file_get_contents("../data-1.json");
     $data = json_decode($file, true);
     $Filtro = [];
@@ -11,7 +13,12 @@
         $precio = str_replace(',', "", $precio);
 
         if (($inferior <= $precio) && ($precio <= $superior)) {
-            $Filtro[] = $data[$i];
+            if ($ciudad == "" && $tipo == "") {
+                $Filtro[] = $data[$i];
+            }
+            if ((($ciudad == $data[$i]['Ciudad']) && ($tipo == $data[$i]['Tipo'])) || (($ciudad == $data[$i]['Ciudad']) && ($tipo == "")) || (($ciudad == "") && ($tipo == $data[$i]['Tipo']))) {
+                $Filtro[] = $data[$i];
+            }
         }
     }
 

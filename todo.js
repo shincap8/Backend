@@ -19,15 +19,15 @@ $(function () {
     $('form').submit(function (e) {
         e.preventDefault();
         $('#resultados').html("");
-        //var tipo = $('#selectTipo').val();
-        //var ciudad = $('#selectCiudad').val();
+        var tipo = $('#selectTipo').val();
+        var ciudad = $('#selectCiudad').val();
         var rango = $('#rangoPrecio').val();
         var inferior = rango.split(';')[0];
         var superior = rango.split(';')[1];
         $.ajax({
             url: "./php/busqueda.php",
             type:"POST",
-            data: {inferior: inferior, superior: superior},
+            data: {inferior: inferior, superior: superior,ciudad: ciudad, tipo: tipo},
             success: function(data) {
                 var arreglo = JSON.parse(data);
                 mostrarTodo(arreglo);
